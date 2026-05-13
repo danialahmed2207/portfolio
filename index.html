@@ -29,11 +29,13 @@
       --accent-purple: #8b5cf6;
       --accent-pink: #ec4899;
       --accent-green: #10b981;
+      --accent-gold: #fbbf24;
       --border: #1e293b;
       --border-hover: #334155;
       --glow-cyan: rgba(0, 217, 255, 0.3);
       --glow-blue: rgba(59, 130, 246, 0.25);
       --glow-purple: rgba(139, 92, 246, 0.2);
+      --glow-gold: rgba(251, 191, 36, 0.3);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -88,16 +90,6 @@
       background-clip: text;
       letter-spacing: -0.02em;
     }
-    nav .links .nav-icon {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 30px; height: 30px; border-radius: 8px;
-      background: var(--bg-card); border: 1px solid var(--border);
-      font-size: 0.9rem; transition: all 0.3s; color: var(--text-secondary);
-    }
-    nav .links .nav-icon:hover {
-      background: rgba(0, 217, 255, 0.1); border-color: var(--accent-cyan);
-      transform: translateY(-2px); color: var(--accent-cyan);
-    }
     nav .links { display: flex; gap: 2rem; font-size: 0.9rem; font-weight: 500; }
     nav .links a {
       color: var(--text-secondary);
@@ -114,6 +106,16 @@
       color: var(--text);
     }
     nav .links a:hover::after { width: 100%; }
+    nav .links .nav-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      font-size: 0.9rem; transition: all 0.3s; color: var(--text-secondary);
+    }
+    nav .links .nav-icon:hover {
+      background: rgba(0, 217, 255, 0.1); border-color: var(--accent-cyan);
+      transform: translateY(-2px); color: var(--accent-cyan);
+    }
     .mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
 
     /* ===================== HERO ===================== */
@@ -456,6 +458,50 @@
       box-shadow: 0 0 8px var(--glow-cyan);
     }
 
+    /* ===================== CERTIFICATES ===================== */
+    .cert-highlight {
+      border: 2px solid var(--accent-gold) !important;
+      box-shadow: 0 0 25px var(--glow-gold) !important;
+      position: relative;
+      overflow: hidden;
+    }
+    .cert-highlight::after {
+      content: 'Featured';
+      position: absolute;
+      top: 10px; right: -30px;
+      background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+      color: var(--bg);
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.2rem 2rem;
+      transform: rotate(45deg);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .cert-highlight .card-title { color: var(--accent-gold); }
+    .cert-list-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.6rem 1rem;
+      background: rgba(59,130,246,0.05);
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .cert-list-item:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(0,217,255,0.08);
+      transform: translateX(4px);
+    }
+    .cert-list-item.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .cert-list-item .cert-org { color: var(--text-secondary); font-size: 0.8rem; }
+
     /* ===================== LANGUAGES ===================== */
     .lang-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .lang-item {
@@ -482,8 +528,11 @@
       border: 1px solid var(--border);
       border-radius: 0.75rem;
       padding: 1.25rem;
-      display: flex; align-items: flex-start; gap: 0.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
       transition: all 0.4s;
+      min-width: 0;
     }
     .contact-item:hover {
       border-color: var(--accent-cyan);
@@ -505,7 +554,7 @@
       box-shadow: 0 0 15px var(--glow-cyan);
     }
     .contact-label { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.15rem; }
-    .contact-value { font-weight: 700; font-size: 0.9rem; }
+    .contact-value { font-weight: 700; font-size: 0.85rem; word-break: break-word; overflow-wrap: anywhere; min-width: 0; }
 
     /* ===================== FOOTER ===================== */
     footer {
@@ -513,10 +562,11 @@
       padding: 2.5rem 0;
       text-align: center;
       color: var(--text-secondary);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
-    footer a { color: var(--accent-cyan); margin: 0 0.5rem; }
+    footer a { color: var(--accent-cyan); margin: 0 0.5rem; white-space: nowrap; }
     footer a:hover { text-shadow: 0 0 10px var(--glow-cyan); }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.5rem; }
 
     /* ===================== SCROLL ANIMATIONS ===================== */
     .animate-on-scroll {
@@ -649,25 +699,25 @@
 
 <nav>
   <div class="container">
-    <a href="#" class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+    <a href="#home" class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" aria-label="Zur Startseite">
       <div class="logo-icon">DA</div>
       <div class="logo-text">Danial Ahmed</div>
     </a>
     <div class="links">
       <a href="#about">Über mich</a>
       <a href="#skills">Skills</a>
-      <a href="#zertifikate">Zertifikate</a>
-      <a href="#projekte">Projekte</a>
-      <a href="#kontakt">Kontakt</a>
+      <a href="#certificates">Zertifikate</a>
+      <a href="#projects">Projekte</a>
+      <a href="#contact">Kontakt</a>
       <a href="https://github.com/danialahmed2207" target="_blank" rel="noopener noreferrer" class="nav-icon" title="GitHub">🐙</a>
       <a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank" rel="noopener noreferrer" class="nav-icon" title="LinkedIn">💼</a>
-      <a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank" rel="noopener noreferrer" class="nav-icon" title="Xing">X</a>
+      <a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank" rel="noopener noreferrer" class="nav-icon" title="Xing">ⓧ</a>
     </div>
-    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Menü öffnen">☰</button>
   </div>
 </nav>
 
-<section class="hero">
+<section class="hero" id="home">
   <div class="container hero-grid">
     <div class="hero-content">
       <h1>Danial Ahmed</h1>
@@ -684,18 +734,18 @@
       </div>
       <div class="hero-buttons">
         <a href="mailto:danialahmed@hotmail.de" class="btn btn-primary">✉️ E-Mail schreiben</a>
-        <a href="https://github.com/danialahmed2207" target="_blank" class="btn btn-secondary">🐙 GitHub</a>
-        <a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank" class="btn btn-secondary">💼 LinkedIn</a>
-        <a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank" class="btn btn-secondary">X Xing</a>
-        <a href="Danial_Ahmed_Lebenslauf_2026_v4.pdf" target="_blank" class="btn btn-outline">📄 Lebenslauf</a>
+        <a href="https://github.com/danialahmed2207" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">🐙 GitHub</a>
+        <a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">💼 LinkedIn</a>
+        <a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">ⓧ Xing</a>
+        <a href="./Danial_Ahmed_Lebenslauf_2026_v4.pdf" target="_blank" class="btn btn-outline" rel="noopener noreferrer">📄 Lebenslauf</a>
       </div>
     </div>
     <div class="photo-gallery">
-      <img src="profile-photo.jpg" alt="Danial Ahmed" class="hero-photo-main" id="mainPhoto" />
+      <img src="profile-photo-main.png" alt="Danial Ahmed Bewerbungsfoto" class="hero-photo-main" id="mainPhoto" />
       <div class="photo-thumbnails">
-        <img src="profile-photo.jpg" alt="Danial Ahmed - Professionell" class="photo-thumb active" onclick="document.getElementById('mainPhoto').src=this.src; document.querySelectorAll('.photo-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');" />
-        <img src="profile-photo.jpg" alt="Danial Ahmed - Freundlich" class="photo-thumb" onclick="document.getElementById('mainPhoto').src=this.src; document.querySelectorAll('.photo-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');" />
-        <img src="profile-photo.jpg" alt="Danial Ahmed - Motiviert" class="photo-thumb" onclick="document.getElementById('mainPhoto').src=this.src; document.querySelectorAll('.photo-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');" />
+        <img src="profile-photo-main.png" alt="Danial Ahmed - Professionell" class="photo-thumb active" onclick="document.getElementById('mainPhoto').src=this.src; document.querySelectorAll('.photo-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');" />
+        <img src="profile-photo-2.png" alt="Danial Ahmed - Freundlich" class="photo-thumb" onclick="document.getElementById('mainPhoto').src=this.src; document.querySelectorAll('.photo-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');" />
+        <img src="profile-photo-3.png" alt="Danial Ahmed - Motiviert" class="photo-thumb" onclick="document.getElementById('mainPhoto').src=this.src; document.querySelectorAll('.photo-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');" />
       </div>
     </div>
   </div>
@@ -706,16 +756,21 @@
     <div class="section-title animate-on-scroll"><span class="icon">👤</span> Über mich</div>
     <div class="about-text animate-on-scroll stagger-2" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; margin-bottom: 3rem; line-height: 1.8; color: var(--text-secondary);">
       <p style="margin-bottom: 1rem;">
-        Hallo! Ich bin <strong style="color: var(--text);">Danial Ahmed</strong>, ein leidenschaftlicher <strong style="color: var(--accent-cyan);">Cloud Engineer & IT-Support Specialist</strong> aus Hemer, NRW. 
+        Ich bin <strong style="color: var(--text);">Danial Ahmed</strong>, IT-Quereinsteiger mit abgeschlossener Ausbildung als Fachkraft für Lagerlogistik und aktueller Weiterbildung im Bereich Softwareentwicklung, Cloud Computing und IT-Administration.
       </p>
       <p style="margin-bottom: 1rem;">
-        Durch meine Ausbildung am <strong>Syntax Institut</strong> und die erfolgreiche IHK-Prüfung zum <strong>IT-Support Specialist</strong> habe ich solide Grundlagen in Cloud-Computing, Netzwerktechnik und moderner Softwareentwicklung erworben.
+        Durch meine Erfahrung in Büroassistenz, Kundenservice, Dokumentation, Prozessorganisation und technischer Problemanalyse bringe ich eine praxisnahe Arbeitsweise mit.
       </p>
       <p>
-        Ich liebe es, komplexe technische Herausforderungen zu lösen — sei es die Konfiguration von AWS-Infrastrukturen, die Entwicklung von Fullstack-Anwendungen mit React und FastAPI, oder die Optimierung von IT-Support-Prozessen. Mein Ziel ist es, als Junior Cloud Engineer oder DevOps Professional durchzustarten und kontinuierlich zu wachsen.
+        Mein Fokus liegt auf <strong style="color: var(--accent-cyan);">IT-Support</strong>, <strong style="color: var(--accent-cyan);">Linux</strong>, <strong style="color: var(--accent-cyan);">Python</strong>, <strong style="color: var(--accent-cyan);">Cloud-Grundlagen</strong>, <strong style="color: var(--accent-cyan);">Systemadministration</strong> und perspektivisch <strong style="color: var(--accent-cyan);">DevOps / Cloud Engineering</strong>.
       </p>
     </div>
-    <div id="skills" class="section-title animate-on-scroll" style="scroll-margin-top: 80px;"><span class="icon">⚡</span> Tech Stack</div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-title animate-on-scroll" style="scroll-margin-top: 80px;"><span class="icon">⚡</span> Tech Stack</div>
     <div class="section-subtitle animate-on-scroll stagger-2">
       Ein Überblick über meine technischen Fähigkeiten und das Tool-Set, das ich täglich einsetze.
     </div>
@@ -724,13 +779,14 @@
         <h3>Frontend</h3>
         <div class="skill-row"><div class="skill-header"><span class="skill-name">HTML</span><span class="skill-percent"><span class="counter" data-target="85">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill cyan" data-width="85"></div></div><div class="skill-repo">🔗 <a href="https://github.com/danialahmed2207/portfolio-website-html-css" target="_blank" rel="noopener noreferrer">portfolio-website-html-css</a></div></div>
         <div class="skill-row"><div class="skill-header"><span class="skill-name">CSS / Responsive Design</span><span class="skill-percent"><span class="counter" data-target="80">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill cyan" data-width="80"></div></div><div class="skill-repo">🔗 <a href="https://github.com/danialahmed2207/portfolio-website-html-css" target="_blank" rel="noopener noreferrer">portfolio-website-html-css</a></div></div>
+        <div class="skill-row"><div class="skill-header"><span class="skill-name">JavaScript</span><span class="skill-percent"><span class="counter" data-target="75">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill cyan" data-width="75"></div></div><div class="skill-repo">🔗 <a href="https://github.com/danialahmed2207/portfolio" target="_blank" rel="noopener noreferrer">portfolio</a></div></div>
+        <div class="skill-row"><div class="skill-header"><span class="skill-name">React / Vite</span><span class="skill-percent"><span class="counter" data-target="70">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill cyan" data-width="70"></div></div><div class="skill-repo">🔗 <a href="https://github.com/danialahmed2207/TaskFlow-Fullstack-Aufgabenmanager" target="_blank" rel="noopener noreferrer">TaskFlow</a></div></div>
       </div>
       <div class="skill-category animate-on-scroll stagger-2">
         <h3>Backend</h3>
         <div class="skill-row"><div class="skill-header"><span class="skill-name">Python</span><span class="skill-percent"><span class="counter" data-target="85">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill blue" data-width="85"></div></div><div class="skill-repo">🔗 <a href="https://github.com/danialahmed2207/bella-napoli-backend" target="_blank" rel="noopener noreferrer">bella-napoli-backend</a> · <a href="https://github.com/danialahmed2207/rezept_sharing_plattform" target="_blank" rel="noopener noreferrer">rezept-sharing</a></div></div>
         <div class="skill-row"><div class="skill-header"><span class="skill-name">Flask</span><span class="skill-percent"><span class="counter" data-target="80">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill blue" data-width="80"></div></div><div class="skill-repo">🔗 <a href="https://github.com/danialahmed2207/bella-napoli-backend" target="_blank" rel="noopener noreferrer">bella-napoli-backend</a> · <a href="https://github.com/danialahmed2207/rezept_sharing_plattform" target="_blank" rel="noopener noreferrer">rezept-sharing</a></div></div>
-        <div class="skill-row"><div class="skill-header"><span class="skill-name">FastAPI</span><span class="skill-percent"><span class="counter" data-target="80">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill blue" data-width="80"></div></div><div class="skill-repo">🔗 <a href="https://github.com/danialahmed2207/TaskFlow-Fullstack-Aufgabenmanager" target="_blank" rel="noopener noreferrer">aufgabenloescher</a></div></div>
-        <div class="skill-row"><div class="skill-header"><span class="skill-name">React / Vite</span><span class="skill-percent"><span class="counter" data-target="75">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill blue" data-width="75"></div></div><div class="skill-repo">🔗 <a href="https://github.com/danialahmed2207/TaskFlow-Fullstack-Aufgabenmanager" target="_blank" rel="noopener noreferrer">aufgabenloescher</a></div></div>
+        <div class="skill-row"><div class="skill-header"><span class="skill-name">FastAPI</span><span class="skill-percent"><span class="counter" data-target="80">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill blue" data-width="80"></div></div><div class="skill-repo">🔗 <a href="https://github.com/danialahmed2207/TaskFlow-Fullstack-Aufgabenmanager" target="_blank" rel="noopener noreferrer">TaskFlow</a></div></div>
         <div class="skill-row"><div class="skill-header"><span class="skill-name">REST APIs</span><span class="skill-percent"><span class="counter" data-target="80">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill blue" data-width="80"></div></div></div>
         <div class="skill-row"><div class="skill-header"><span class="skill-name">SQL / SQLite</span><span class="skill-percent"><span class="counter" data-target="75">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill blue" data-width="75"></div></div></div>
       </div>
@@ -744,17 +800,19 @@
       </div>
       <div class="skill-category animate-on-scroll stagger-4">
         <h3>Tools & Business</h3>
-        <div class="skill-row"><div class="skill-header"><span class="skill-name">Git / GitHub</span><span class="skill-percent"><span class="counter" data-target="85">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill green" data-width="85"></div></div><div class="skill-repo">🔗 <a href="https://github.com/danialahmed2207/portfolio" target="_blank" rel="noopener noreferrer">portfolio</a></div></div>
+        <div class="skill-row"><div class="skill-header"><span class="skill-name">Git / GitHub</span><span class="skill-percent"><span class="counter" data-target="85">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill green" data-width="85"></div></div><div class="skill-repo">🔗 <a href="https://github.com/danialahmed2207/portfolio" target="_blank" rel="noopener noreferrer">portfolio</a> · <a href="https://github.com/danialahmed2207/TaskFlow-Fullstack-Aufgabenmanager" target="_blank" rel="noopener noreferrer">TaskFlow</a></div></div>
+        <div class="skill-row"><div class="skill-header"><span class="skill-name">VS Code</span><span class="skill-percent"><span class="counter" data-target="85">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill green" data-width="85"></div></div></div>
         <div class="skill-row"><div class="skill-header"><span class="skill-name">MS Office</span><span class="skill-percent"><span class="counter" data-target="90">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill green" data-width="90"></div></div></div>
         <div class="skill-row"><div class="skill-header"><span class="skill-name">SAP</span><span class="skill-percent"><span class="counter" data-target="70">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill green" data-width="70"></div></div></div>
         <div class="skill-row"><div class="skill-header"><span class="skill-name">Salesforce</span><span class="skill-percent"><span class="counter" data-target="75">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill green" data-width="75"></div></div></div>
+        <div class="skill-row"><div class="skill-header"><span class="skill-name">Dokumentation</span><span class="skill-percent"><span class="counter" data-target="80">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill green" data-width="80"></div></div></div>
         <div class="skill-row"><div class="skill-header"><span class="skill-name">Projektmanagement</span><span class="skill-percent"><span class="counter" data-target="75">0</span>%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill green" data-width="75"></div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="werdegang" style="background: var(--bg-secondary);">
+<section id="experience" style="background: var(--bg-secondary);">
   <div class="container">
     <div class="section-title animate-on-scroll"><span class="icon">🚀</span> Beruflicher Werdegang</div>
     <div class="timeline">
@@ -769,64 +827,76 @@
   </div>
 </section>
 
-<section id="zertifikate">
+<section id="certificates">
   <div class="container">
     <div class="section-title animate-on-scroll"><span class="icon">🏆</span> Zertifikate</div>
     <div class="section-subtitle animate-on-scroll stagger-2">Wichtige Zertifikate und Weiterbildungen aus meiner beruflichen Laufbahn.</div>
-    
-    <!-- Wichtige Zertifikate (Hervorgehoben) -->
+
+    <!-- Featured Certificates -->
     <div class="cards-grid" style="margin-bottom: 2rem;">
-      <a href="Zertifikate/IHK-Zertifikat_IT-Support-Specialist.pdf" target="_blank" class="card cert-highlight animate-scale stagger-1" style="border: 2px solid var(--accent-gold); box-shadow: 0 0 25px var(--glow-gold);">
+      <a href="Zertifikate/ihk-it-support-specialist.pdf" target="_blank" rel="noopener noreferrer" class="card cert-highlight animate-scale stagger-1">
         <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏅</div>
         <div class="card-title">IT-Support Specialist</div>
         <div class="card-meta">IHK · 03/2026 · Abschlussprüfung bestanden</div>
         <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--accent-gold);">📄 Zertifikat ansehen →</div>
       </a>
-      <a href="Zertifikate/2026-01-02%20Linux%20Essentials%20Zertifikat.pdf" target="_blank" class="card cert-highlight animate-scale stagger-2" style="border: 2px solid var(--accent-gold); box-shadow: 0 0 25px var(--glow-gold);">
+      <a href="Zertifikate/linux-essentials-lpi.pdf" target="_blank" rel="noopener noreferrer" class="card cert-highlight animate-scale stagger-2">
         <div style="font-size: 2rem; margin-bottom: 0.5rem;">🐧</div>
         <div class="card-title">Linux Essentials</div>
         <div class="card-meta">LPI · 01/2026 · Offizielle Linux-Zertifizierung</div>
         <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--accent-gold);">📄 Zertifikat ansehen →</div>
       </a>
     </div>
-    
-    <!-- Weitere Zertifikate -->
+
+    <!-- More Certificates -->
     <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem;">
       <h4 style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.95rem;">📚 Weitere Zertifikate & Weiterbildungen</h4>
       <div class="cert-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem;">
-        <a href="Zertifikate/Abschlusszertifikat_Grundwissen%20Cybersecurity%20bereitgestellt%20von%20Microsoft%20und%20LinkedIn.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
-          <span>🔒</span><span style="font-size: 0.9rem;">Cybersecurity: Grundwissen <span style="color: var(--text-secondary); font-size: 0.8rem;">— Microsoft & LinkedIn</span></span>
+        <a href="Zertifikate/cybersecurity-grundlagen.pdf" target="_blank" rel="noopener noreferrer" class="cert-list-item">
+          <span>🔒</span><span>Cybersecurity: Grundlegende Konzepte <span class="cert-org">— LinkedIn Learning</span></span>
         </a>
-        <a href="Zertifikate/Abschlusszertifikat_Microsoft%20Copilot%20fur%20Security.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
-          <span>🤖</span><span style="font-size: 0.9rem;">Microsoft Copilot für Security <span style="color: var(--text-secondary); font-size: 0.8rem;">— Microsoft</span></span>
+        <a href="Zertifikate/google-connect-and-protect.pdf" target="_blank" rel="noopener noreferrer" class="cert-list-item">
+          <span>🌐</span><span>Google IT Support: Connect and Protect <span class="cert-org">— Coursera / Google</span></span>
         </a>
-        <a href="Zertifikate/Abschlusszertifikat_Python%20fur%20C%20Java%20und%20CEntwicklerinnen.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
-          <span>🐍</span><span style="font-size: 0.9rem;">Python für Entwickler <span style="color: var(--text-secondary); font-size: 0.8rem;">— LinkedIn Learning</span></span>
+        <a href="Zertifikate/google-it-support-kurs-2.pdf" target="_blank" rel="noopener noreferrer" class="cert-list-item">
+          <span>🔐</span><span>Google IT Support: Kurs 2 <span class="cert-org">— Coursera / Google</span></span>
         </a>
-        <a href="Zertifikate/Abschlusszertifikat_Einfuhrung%20in%20die%20Softwarearchitektur%201%20Grundlagen%20und%20Begriffe.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
-          <span>🏗️</span><span style="font-size: 0.9rem;">Softwarearchitektur Grundlagen <span style="color: var(--text-secondary); font-size: 0.8rem;">— LinkedIn Learning</span></span>
-        </a>
-        <a href="Zertifikate/Coursera_Certificate_Connect_and_Protect_Danial_Ahmed.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
-          <span>🌐</span><span style="font-size: 0.9rem;">Google IT Support: Connect and Protect <span style="color: var(--text-secondary); font-size: 0.8rem;">— Coursera / Google</span></span>
-        </a>
-        <a href="Zertifikate/Coursera_Kurs2_Zertifikat_Danial_Ahmed.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
-          <span>🔐</span><span style="font-size: 0.9rem;">Google IT Support: Kurs 2 <span style="color: var(--text-secondary); font-size: 0.8rem;">— Coursera / Google</span></span>
-        </a>
-        <div class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(139,92,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border);">
-          <span>📊</span><span style="font-size: 0.9rem;">Projektmanagement <span style="color: var(--text-secondary); font-size: 0.8rem;">— LinkedIn Learning · 04/2026</span></span>
+        <div class="cert-list-item disabled" title="Zertifikat wird ergänzt">
+          <span>🤖</span><span>Microsoft Copilot für Security <span class="cert-org">— Microsoft · Datei wird ergänzt</span></span>
         </div>
-        <div class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(139,92,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border);">
-          <span>🧠</span><span style="font-size: 0.9rem;">KI & Management <span style="color: var(--text-secondary); font-size: 0.8rem;">— LinkedIn Learning · 2026</span></span>
+        <div class="cert-list-item disabled" title="Zertifikat wird ergänzt">
+          <span>🐍</span><span>Python für Entwickler <span class="cert-org">— LinkedIn Learning · Datei wird ergänzt</span></span>
         </div>
+        <div class="cert-list-item disabled" title="Zertifikat wird ergänzt">
+          <span>🏗️</span><span>Softwarearchitektur Grundlagen <span class="cert-org">— LinkedIn Learning · Datei wird ergänzt</span></span>
+        </div>
+        <a href="Zertifikate/linkedin-ki-kritisches-denken.pdf" target="_blank" rel="noopener noreferrer" class="cert-list-item">
+          <span>🧠</span><span>KI: Kritisches Denken <span class="cert-org">— LinkedIn Learning</span></span>
+        </a>
+        <a href="Zertifikate/linkedin-ki-management.pdf" target="_blank" rel="noopener noreferrer" class="cert-list-item">
+          <span>📊</span><span>KI-gestütztes Management <span class="cert-org">— LinkedIn Learning</span></span>
+        </a>
+        <a href="Zertifikate/linkedin-ki-teamkultur.pdf" target="_blank" rel="noopener noreferrer" class="cert-list-item">
+          <span>👥</span><span>KI: Kollaborative Teamkultur <span class="cert-org">— LinkedIn Learning</span></span>
+        </a>
+        <a href="Zertifikate/linkedin-ki-verantwortung.pdf" target="_blank" rel="noopener noreferrer" class="cert-list-item">
+          <span>🛡️</span><span>Verantwortungsvolle KI <span class="cert-org">— LinkedIn Learning</span></span>
+        </a>
+        <a href="Zertifikate/linkedin-ki-karriere.pdf" target="_blank" rel="noopener noreferrer" class="cert-list-item">
+          <span>💼</span><span>KI & Karrieregespräche <span class="cert-org">— LinkedIn Learning</span></span>
+        </a>
+        <a href="Zertifikate/linkedin-ki-coaching.pdf" target="_blank" rel="noopener noreferrer" class="cert-list-item">
+          <span>🎯</span><span>KI & Coaching <span class="cert-org">— LinkedIn Learning</span></span>
+        </a>
       </div>
     </div>
     <div class="animate-on-scroll stagger-3" style="margin-top: 1.5rem;">
-      <a href="https://www.credly.com/badges/d7c5aed7-b3ba-492d-a0fe-4170528a36ce/public_url" target="_blank">🏅 Alle Badges auf Credly ansehen →</a>
+      <a href="https://www.credly.com/badges/d7c5aed7-b3ba-492d-a0fe-4170528a36ce/public_url" target="_blank" rel="noopener noreferrer">🏅 Alle Badges auf Credly ansehen →</a>
     </div>
   </div>
 </section>
 
-<section id="sprachen" style="background: var(--bg-secondary);">
+<section id="languages" style="background: var(--bg-secondary);">
   <div class="container">
     <div class="section-title animate-on-scroll"><span class="icon">🌐</span> Sprachen</div>
     <div class="lang-grid">
@@ -839,7 +909,7 @@
   </div>
 </section>
 
-<section id="projekte">
+<section id="projects">
   <div class="container">
     <div class="section-title animate-on-scroll"><span class="icon">💻</span> Projekte</div>
     <div class="section-subtitle animate-on-scroll stagger-2">Praxisnahe Projekte, die meine technischen Fähigkeiten und meinen Lernfortschritt demonstrieren.</div>
@@ -848,7 +918,7 @@
       <div class="card animate-on-scroll stagger-1">
         <div class="card-title">TaskFlow — Fullstack Aufgabenmanager</div>
         <div class="card-meta">Professionelle 3-Schichten-Webanwendung mit React-Frontend, FastAPI-Backend, SQLite-Datenbank und AWS EC2-Deployment. CRUD-Operationen, REST API, SSL/HTTPS, Monitoring und Auto-Deploy.</div>
-        <div class="card-tags"><span class="tag">React</span><span class="tag">Vite</span><span class="tag">FastAPI</span><span class="tag">SQLite</span><span class="tag">AWS EC2</span><span class="tag">Nginx</span><span class="tag">SSL</span><span class="tag">GitHub Actions</span></div>
+        <div class="card-tags"><span class="tag">React</span><span class="tag">Vite</span><span class="tag">FastAPI</span><span class="tag">SQLite</span><span class="tag">AWS EC2</span><span class="tag">Nginx</span><span class="tag">SSL</span></div>
         <div class="card-links">
           <a href="https://github.com/danialahmed2207/TaskFlow-Fullstack-Aufgabenmanager" class="card-link" target="_blank" rel="noopener noreferrer">🐙 Zum Code</a>
         </div>
@@ -915,23 +985,23 @@
   </div>
 </section>
 
-<section id="kontakt" style="background: var(--bg-secondary);">
+<section id="contact" style="background: var(--bg-secondary);">
   <div class="container">
     <div class="section-title animate-on-scroll"><span class="icon">📨</span> Kontakt</div>
     <div class="section-subtitle animate-on-scroll stagger-2">
       Ich bin offen für Junior-Positionen im Bereich Cloud Engineering, IT-Support, Systemadministration, DevOps oder Softwareentwicklung. Remote und Hybrid sind für mich kein Problem.
     </div>
     <div class="contact-grid">
-      <div class="contact-item animate-on-scroll stagger-1"><div class="contact-icon">✉️</div><div><div class="contact-label">E-Mail</div><div class="contact-value" style="font-size: 0.85rem;"><a href="mailto:danialahmed@hotmail.de">danialahmed@hotmail.de</a></div></div></div>
-      <div class="contact-item animate-on-scroll stagger-2"><div class="contact-icon">📱</div><div><div class="contact-label">Telefon</div><div class="contact-value" style="font-size: 0.85rem;"><a href="tel:+491734257957">0173 425 7957</a></div></div></div>
-      <div class="contact-item animate-on-scroll stagger-3"><div class="contact-icon">🐙</div><div><div class="contact-label">GitHub</div><div class="contact-value" style="font-size: 0.85rem;"><a href="https://github.com/danialahmed2207" target="_blank">github.com/danialahmed2207</a></div></div></div>
-      <div class="contact-item animate-on-scroll stagger-4"><div class="contact-icon">💼</div><div><div class="contact-label">LinkedIn</div><div class="contact-value" style="font-size: 0.85rem;"><a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank">linkedin.com/in/danial-ahmed</a></div></div></div>
-      <div class="contact-item animate-on-scroll stagger-5"><div class="contact-icon">X</div><div><div class="contact-label">Xing</div><div class="contact-value" style="font-size: 0.85rem;"><a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank">xing.com/profile/Danial_Ahmed</a></div></div></div>
-      <div class="contact-item animate-on-scroll stagger-6"><div class="contact-icon">🏅</div><div><div class="contact-label">Credly</div><div class="contact-value" style="font-size: 0.85rem;"><a href="https://www.credly.com/badges/d7c5aed7-b3ba-492d-a0fe-4170528a36ce/public_url" target="_blank">credly.com/badges/d7c5aed7</a></div></div></div>
-      <div class="contact-item animate-on-scroll stagger-1"><div class="contact-icon">📍</div><div><div class="contact-label">Standort</div><div class="contact-value" style="font-size: 0.85rem;">Hemer, NRW, Deutschland</div></div></div>
+      <div class="contact-item animate-on-scroll stagger-1"><div class="contact-icon">✉️</div><div><div class="contact-label">E-Mail</div><div class="contact-value"><a href="mailto:danialahmed@hotmail.de">danialahmed@hotmail.de</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-2"><div class="contact-icon">📱</div><div><div class="contact-label">Telefon</div><div class="contact-value"><a href="tel:+491734257957">0173 425 7957</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-3"><div class="contact-icon">🐙</div><div><div class="contact-label">GitHub</div><div class="contact-value"><a href="https://github.com/danialahmed2207" target="_blank" rel="noopener noreferrer">github.com/danialahmed2207</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-4"><div class="contact-icon">💼</div><div><div class="contact-label">LinkedIn</div><div class="contact-value"><a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank" rel="noopener noreferrer">linkedin.com/in/danial-ahmed</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-5"><div class="contact-icon">ⓧ</div><div><div class="contact-label">Xing</div><div class="contact-value"><a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank" rel="noopener noreferrer">xing.com/profile/Danial_Ahmed</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-6"><div class="contact-icon">🏅</div><div><div class="contact-label">Credly</div><div class="contact-value"><a href="https://www.credly.com/badges/d7c5aed7-b3ba-492d-a0fe-4170528a36ce/public_url" target="_blank" rel="noopener noreferrer">credly.com/badges/d7c5aed7</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-1"><div class="contact-icon">📍</div><div><div class="contact-label">Standort</div><div class="contact-value">Hemer, NRW, Deutschland</div></div></div>
     </div>
     <div class="animate-on-scroll stagger-3" style="text-align: center; margin-top: 2rem;">
-      <a href="Danial_Ahmed_Lebenslauf_2026_v4.pdf" target="_blank" class="btn btn-primary" style="font-size: 0.95rem; padding: 0.85rem 2.2rem;">
+      <a href="./Danial_Ahmed_Lebenslauf_2026_v4.pdf" target="_blank" class="btn btn-primary" style="font-size: 0.95rem; padding: 0.85rem 2.2rem;" rel="noopener noreferrer">
         📄 Lebenslauf ansehen (PDF)
       </a>
     </div>
@@ -939,17 +1009,16 @@
 </section>
 
 <footer>
-  <div class="container" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1rem; font-size: 0.85rem;">
-    <span>© 2026 Danial Ahmed · Cloud Engineer & IT-Support</span>
-    <span style="color: var(--border);">|</span>
-    <a href="https://github.com/danialahmed2207" target="_blank">GitHub</a>
-    <a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank">LinkedIn</a>
-    <a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank">Xing</a>
-    <span style="color: var(--border);">|</span>
-    <a href="Danial_Ahmed_Lebenslauf_2026_v4.pdf" target="_blank">📄 Lebenslauf</a>
+  <div class="container">
+    <div style="margin-bottom: 0.5rem;">© 2026 Danial Ahmed · Cloud Engineer & IT-Support</div>
+    <div class="footer-links">
+      <a href="https://github.com/danialahmed2207" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank" rel="noopener noreferrer">Xing</a>
+      <a href="./Danial_Ahmed_Lebenslauf_2026_v4.pdf" target="_blank" rel="noopener noreferrer">📄 Lebenslauf</a>
+    </div>
   </div>
 </footer>
-
 <script>
   // ===================== PARTICLE BACKGROUND =====================
   (function() {
@@ -976,7 +1045,7 @@
         this.speedX = (Math.random() - 0.5) * 0.3;
         this.speedY = (Math.random() - 0.5) * 0.3;
         this.opacity = Math.random() * 0.5 + 0.1;
-        this.hue = Math.random() > 0.5 ? 190 : 250; // cyan or purple
+        this.hue = Math.random() > 0.5 ? 190 : 250;
       }
       update() {
         this.x += this.speedX;
@@ -993,7 +1062,6 @@
       }
     }
 
-    // Draw connections
     function drawConnections() {
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
@@ -1047,10 +1115,10 @@
           const width = fill.getAttribute('data-width');
           setTimeout(() => {
             fill.style.width = width + '%';
+            fill.classList.add('visible');
           }, idx * 150);
         });
 
-        // Counter animation
         const counters = entry.target.querySelectorAll('.counter');
         counters.forEach(counter => {
           const target = parseInt(counter.getAttribute('data-target'));
@@ -1090,14 +1158,30 @@
       links.style.padding = '1rem 1.5rem';
       links.style.borderBottom = '1px solid var(--border)';
       links.style.gap = '1rem';
+      links.style.zIndex = '99';
     }
   }
+
+  // Close mobile menu when a link is clicked
+  document.querySelectorAll('nav .links a').forEach(link => {
+    link.addEventListener('click', () => {
+      const links = document.querySelector('nav .links');
+      if (window.innerWidth <= 768) {
+        links.style.display = 'none';
+      }
+    });
+  });
 
   // ===================== SMOOTH SCROLL =====================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
+      const targetId = this.getAttribute('href');
+      if (targetId === '#home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      const target = document.querySelector(targetId);
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
