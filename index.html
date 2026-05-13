@@ -67,10 +67,36 @@
     }
     nav .container { display: flex; justify-content: space-between; align-items: center; height: 64px; }
     nav .logo {
-      font-weight: 900; font-size: 1.3rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      cursor: pointer; transition: transform 0.3s;
+      text-decoration: none;
+    }
+    nav .logo:hover { transform: scale(1.05); }
+    nav .logo-icon {
+      width: 38px; height: 38px;
       background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1.1rem;
+      color: var(--bg);
+      box-shadow: 0 0 15px var(--glow-cyan);
+    }
+    nav .logo-text {
+      font-weight: 800; font-size: 1.15rem;
+      background: linear-gradient(135deg, var(--text), var(--accent-cyan));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
+      letter-spacing: -0.02em;
+    }
+    nav .links .nav-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      font-size: 0.9rem; transition: all 0.3s; color: var(--text-secondary);
+    }
+    nav .links .nav-icon:hover {
+      background: rgba(0, 217, 255, 0.1); border-color: var(--accent-cyan);
+      transform: translateY(-2px); color: var(--accent-cyan);
     }
     nav .links { display: flex; gap: 2rem; font-size: 0.9rem; font-weight: 500; }
     nav .links a {
@@ -201,7 +227,8 @@
       color: var(--bg);
       box-shadow: 0 0 20px var(--glow-cyan);
     }
-    .hero-photo {
+    .photo-gallery { display: flex; flex-direction: column; gap: 1rem; align-items: center; }
+    .hero-photo-main {
       width: 260px; height: 260px;
       border-radius: 1rem;
       object-fit: cover;
@@ -210,6 +237,22 @@
                   linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple)) border-box;
       box-shadow: 0 0 40px rgba(0, 217, 255, 0.2);
       animation: photoFloat 6s ease-in-out infinite;
+    }
+    .photo-thumbnails { display: flex; gap: 0.75rem; }
+    .photo-thumb {
+      width: 60px; height: 60px;
+      border-radius: 0.5rem;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      transition: all 0.3s;
+      opacity: 0.6;
+    }
+    .photo-thumb:hover, .photo-thumb.active {
+      border-color: var(--accent-cyan);
+      opacity: 1;
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--glow-cyan);
     }
     @keyframes photoFloat {
       0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -606,14 +649,19 @@
 
 <nav>
   <div class="container">
-    <div class="logo">DA</div>
+    <a href="#" class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+      <div class="logo-icon">DA</div>
+      <div class="logo-text">Danial Ahmed</div>
+    </a>
     <div class="links">
       <a href="#about">Über mich</a>
       <a href="#skills">Skills</a>
-      <a href="#werdegang">Werdegang</a>
       <a href="#zertifikate">Zertifikate</a>
       <a href="#projekte">Projekte</a>
       <a href="#kontakt">Kontakt</a>
+      <a href="https://github.com/danialahmed2207" target="_blank" rel="noopener noreferrer" class="nav-icon" title="GitHub">🐙</a>
+      <a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank" rel="noopener noreferrer" class="nav-icon" title="LinkedIn">💼</a>
+      <a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank" rel="noopener noreferrer" class="nav-icon" title="Xing">X</a>
     </div>
     <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
   </div>
@@ -638,16 +686,36 @@
         <a href="mailto:danialahmed@hotmail.de" class="btn btn-primary">✉️ E-Mail schreiben</a>
         <a href="https://github.com/danialahmed2207" target="_blank" class="btn btn-secondary">🐙 GitHub</a>
         <a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank" class="btn btn-secondary">💼 LinkedIn</a>
-        <a href="Danial_Ahmed_Lebenslauf_2026_v4.pdf" download class="btn btn-outline">📄 Lebenslauf</a>
+        <a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank" class="btn btn-secondary">X Xing</a>
+        <a href="Danial_Ahmed_Lebenslauf_2026_v4.pdf" target="_blank" class="btn btn-outline">📄 Lebenslauf</a>
       </div>
     </div>
-    <img src="profile-photo.jpg" alt="Danial Ahmed" class="hero-photo" />
+    <div class="photo-gallery">
+      <img src="profile-photo.jpg" alt="Danial Ahmed" class="hero-photo-main" id="mainPhoto" />
+      <div class="photo-thumbnails">
+        <img src="profile-photo.jpg" alt="Danial Ahmed - Professionell" class="photo-thumb active" onclick="document.getElementById('mainPhoto').src=this.src; document.querySelectorAll('.photo-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');" />
+        <img src="profile-photo.jpg" alt="Danial Ahmed - Freundlich" class="photo-thumb" onclick="document.getElementById('mainPhoto').src=this.src; document.querySelectorAll('.photo-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');" />
+        <img src="profile-photo.jpg" alt="Danial Ahmed - Motiviert" class="photo-thumb" onclick="document.getElementById('mainPhoto').src=this.src; document.querySelectorAll('.photo-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');" />
+      </div>
+    </div>
   </div>
 </section>
 
 <section id="about">
   <div class="container">
-    <div class="section-title animate-on-scroll"><span class="icon">⚡</span> Tech Stack</div>
+    <div class="section-title animate-on-scroll"><span class="icon">👤</span> Über mich</div>
+    <div class="about-text animate-on-scroll stagger-2" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; margin-bottom: 3rem; line-height: 1.8; color: var(--text-secondary);">
+      <p style="margin-bottom: 1rem;">
+        Hallo! Ich bin <strong style="color: var(--text);">Danial Ahmed</strong>, ein leidenschaftlicher <strong style="color: var(--accent-cyan);">Cloud Engineer & IT-Support Specialist</strong> aus Hemer, NRW. 
+      </p>
+      <p style="margin-bottom: 1rem;">
+        Durch meine Ausbildung am <strong>Syntax Institut</strong> und die erfolgreiche IHK-Prüfung zum <strong>IT-Support Specialist</strong> habe ich solide Grundlagen in Cloud-Computing, Netzwerktechnik und moderner Softwareentwicklung erworben.
+      </p>
+      <p>
+        Ich liebe es, komplexe technische Herausforderungen zu lösen — sei es die Konfiguration von AWS-Infrastrukturen, die Entwicklung von Fullstack-Anwendungen mit React und FastAPI, oder die Optimierung von IT-Support-Prozessen. Mein Ziel ist es, als Junior Cloud Engineer oder DevOps Professional durchzustarten und kontinuierlich zu wachsen.
+      </p>
+    </div>
+    <div id="skills" class="section-title animate-on-scroll" style="scroll-margin-top: 80px;"><span class="icon">⚡</span> Tech Stack</div>
     <div class="section-subtitle animate-on-scroll stagger-2">
       Ein Überblick über meine technischen Fähigkeiten und das Tool-Set, das ich täglich einsetze.
     </div>
@@ -704,17 +772,53 @@
 <section id="zertifikate">
   <div class="container">
     <div class="section-title animate-on-scroll"><span class="icon">🏆</span> Zertifikate</div>
-    <div class="cards-grid">
-      <div class="card animate-scale stagger-1"><div class="card-title">IT-Support Specialist</div><div class="card-meta">IHK · 03/2026</div></div>
-      <div class="card animate-scale stagger-2"><div class="card-title">Linux Essentials</div><div class="card-meta">LPI · 01/2026</div></div>
-      <div class="card animate-scale stagger-3"><div class="card-title">Cybersecurity: Grundwissen</div><div class="card-meta">Microsoft & LinkedIn · 2025</div></div>
-      <div class="card animate-scale stagger-4"><div class="card-title">Microsoft Copilot für Security</div><div class="card-meta">Microsoft · 2025</div></div>
-      <div class="card animate-scale stagger-5"><div class="card-title">Python für C-/Java-/C#-Entwickler</div><div class="card-meta">LinkedIn Learning · 2025</div></div>
-      <div class="card animate-scale stagger-6"><div class="card-title">Einführung in die Softwarearchitektur</div><div class="card-meta">LinkedIn Learning · 2025</div></div>
-      <div class="card animate-scale stagger-1"><div class="card-title">Google IT Support: Connect and Protect</div><div class="card-meta">Coursera / Google · 05/2026</div></div>
-      <div class="card animate-scale stagger-2"><div class="card-title">Google IT Support: Kurs 2</div><div class="card-meta">Coursera / Google · 05/2026</div></div>
-      <div class="card animate-scale stagger-3"><div class="card-title">Projektmanagement</div><div class="card-meta">LinkedIn Learning · 04/2026</div></div>
-      <div class="card animate-scale stagger-4"><div class="card-title">KI & Management</div><div class="card-meta">LinkedIn Learning · 2026</div></div>
+    <div class="section-subtitle animate-on-scroll stagger-2">Wichtige Zertifikate und Weiterbildungen aus meiner beruflichen Laufbahn.</div>
+    
+    <!-- Wichtige Zertifikate (Hervorgehoben) -->
+    <div class="cards-grid" style="margin-bottom: 2rem;">
+      <a href="Zertifikate/IHK-Zertifikat_IT-Support-Specialist.pdf" target="_blank" class="card cert-highlight animate-scale stagger-1" style="border: 2px solid var(--accent-gold); box-shadow: 0 0 25px var(--glow-gold);">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏅</div>
+        <div class="card-title">IT-Support Specialist</div>
+        <div class="card-meta">IHK · 03/2026 · Abschlussprüfung bestanden</div>
+        <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--accent-gold);">📄 Zertifikat ansehen →</div>
+      </a>
+      <a href="Zertifikate/2026-01-02%20Linux%20Essentials%20Zertifikat.pdf" target="_blank" class="card cert-highlight animate-scale stagger-2" style="border: 2px solid var(--accent-gold); box-shadow: 0 0 25px var(--glow-gold);">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🐧</div>
+        <div class="card-title">Linux Essentials</div>
+        <div class="card-meta">LPI · 01/2026 · Offizielle Linux-Zertifizierung</div>
+        <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--accent-gold);">📄 Zertifikat ansehen →</div>
+      </a>
+    </div>
+    
+    <!-- Weitere Zertifikate -->
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem;">
+      <h4 style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.95rem;">📚 Weitere Zertifikate & Weiterbildungen</h4>
+      <div class="cert-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem;">
+        <a href="Zertifikate/Abschlusszertifikat_Grundwissen%20Cybersecurity%20bereitgestellt%20von%20Microsoft%20und%20LinkedIn.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
+          <span>🔒</span><span style="font-size: 0.9rem;">Cybersecurity: Grundwissen <span style="color: var(--text-secondary); font-size: 0.8rem;">— Microsoft & LinkedIn</span></span>
+        </a>
+        <a href="Zertifikate/Abschlusszertifikat_Microsoft%20Copilot%20fur%20Security.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
+          <span>🤖</span><span style="font-size: 0.9rem;">Microsoft Copilot für Security <span style="color: var(--text-secondary); font-size: 0.8rem;">— Microsoft</span></span>
+        </a>
+        <a href="Zertifikate/Abschlusszertifikat_Python%20fur%20C%20Java%20und%20CEntwicklerinnen.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
+          <span>🐍</span><span style="font-size: 0.9rem;">Python für Entwickler <span style="color: var(--text-secondary); font-size: 0.8rem;">— LinkedIn Learning</span></span>
+        </a>
+        <a href="Zertifikate/Abschlusszertifikat_Einfuhrung%20in%20die%20Softwarearchitektur%201%20Grundlagen%20und%20Begriffe.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
+          <span>🏗️</span><span style="font-size: 0.9rem;">Softwarearchitektur Grundlagen <span style="color: var(--text-secondary); font-size: 0.8rem;">— LinkedIn Learning</span></span>
+        </a>
+        <a href="Zertifikate/Coursera_Certificate_Connect_and_Protect_Danial_Ahmed.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
+          <span>🌐</span><span style="font-size: 0.9rem;">Google IT Support: Connect and Protect <span style="color: var(--text-secondary); font-size: 0.8rem;">— Coursera / Google</span></span>
+        </a>
+        <a href="Zertifikate/Coursera_Kurs2_Zertifikat_Danial_Ahmed.pdf" target="_blank" class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(59,130,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; color: var(--text);">
+          <span>🔐</span><span style="font-size: 0.9rem;">Google IT Support: Kurs 2 <span style="color: var(--text-secondary); font-size: 0.8rem;">— Coursera / Google</span></span>
+        </a>
+        <div class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(139,92,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border);">
+          <span>📊</span><span style="font-size: 0.9rem;">Projektmanagement <span style="color: var(--text-secondary); font-size: 0.8rem;">— LinkedIn Learning · 04/2026</span></span>
+        </div>
+        <div class="cert-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(139,92,246,0.08); border-radius: 0.5rem; border: 1px solid var(--border);">
+          <span>🧠</span><span style="font-size: 0.9rem;">KI & Management <span style="color: var(--text-secondary); font-size: 0.8rem;">— LinkedIn Learning · 2026</span></span>
+        </div>
+      </div>
     </div>
     <div class="animate-on-scroll stagger-3" style="margin-top: 1.5rem;">
       <a href="https://www.credly.com/badges/d7c5aed7-b3ba-492d-a0fe-4170528a36ce/public_url" target="_blank">🏅 Alle Badges auf Credly ansehen →</a>
@@ -729,7 +833,7 @@
       <div class="lang-item animate-scale stagger-1"><span class="lang-flag">🇩🇪</span><div><div class="lang-name">Deutsch</div><div class="lang-level">Fließend</div></div></div>
       <div class="lang-item animate-scale stagger-2"><span class="lang-flag">🇬🇧</span><div><div class="lang-name">Englisch</div><div class="lang-level">Fließend</div></div></div>
       <div class="lang-item animate-scale stagger-3"><span class="lang-flag">🇵🇰</span><div><div class="lang-name">Urdu</div><div class="lang-level">Muttersprache</div></div></div>
-      <div class="lang-item animate-scale stagger-4"><span class="lang-flag">🇮🇳</span><div><div class="lang-name">Punjabi</div><div class="lang-level">Fließend</div></div></div>
+      <div class="lang-item animate-scale stagger-4"><span class="lang-flag">🇵🇰</span><div><div class="lang-name">Punjabi</div><div class="lang-level">Fließend</div></div></div>
       <div class="lang-item animate-scale stagger-5"><span class="lang-flag">🇮🇳</span><div><div class="lang-name">Hindi</div><div class="lang-level">Fließend</div></div></div>
     </div>
   </div>
@@ -818,24 +922,31 @@
       Ich bin offen für Junior-Positionen im Bereich Cloud Engineering, IT-Support, Systemadministration, DevOps oder Softwareentwicklung. Remote und Hybrid sind für mich kein Problem.
     </div>
     <div class="contact-grid">
-      <div class="contact-item animate-on-scroll stagger-1"><div class="contact-icon">✉️</div><div><div class="contact-label">E-Mail</div><div class="contact-value"><a href="mailto:danialahmed@hotmail.de">danialahmed@hotmail.de</a></div></div></div>
-      <div class="contact-item animate-on-scroll stagger-2"><div class="contact-icon">📱</div><div><div class="contact-label">Telefon</div><div class="contact-value"><a href="tel:+491734257957">0173 425 7957</a></div></div></div>
-      <div class="contact-item animate-on-scroll stagger-3"><div class="contact-icon">🐙</div><div><div class="contact-label">GitHub</div><div class="contact-value"><a href="https://github.com/danialahmed2207" target="_blank">github.com/danialahmed2207</a></div></div></div>
-      <div class="contact-item animate-on-scroll stagger-4"><div class="contact-icon">💼</div><div><div class="contact-label">LinkedIn</div><div class="contact-value"><a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank">linkedin.com/in/danial-ahmed</a></div></div></div>
-      <div class="contact-item animate-on-scroll stagger-5"><div class="contact-icon">🏅</div><div><div class="contact-label">Credly</div><div class="contact-value"><a href="https://www.credly.com/badges/d7c5aed7-b3ba-492d-a0fe-4170528a36ce/public_url" target="_blank">credly.com/badges/d7c5aed7</a></div></div></div>
-      <div class="contact-item animate-on-scroll stagger-6"><div class="contact-icon">📍</div><div><div class="contact-label">Standort</div><div class="contact-value">Hemer, NRW, Deutschland</div></div></div>
+      <div class="contact-item animate-on-scroll stagger-1"><div class="contact-icon">✉️</div><div><div class="contact-label">E-Mail</div><div class="contact-value" style="font-size: 0.85rem;"><a href="mailto:danialahmed@hotmail.de">danialahmed@hotmail.de</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-2"><div class="contact-icon">📱</div><div><div class="contact-label">Telefon</div><div class="contact-value" style="font-size: 0.85rem;"><a href="tel:+491734257957">0173 425 7957</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-3"><div class="contact-icon">🐙</div><div><div class="contact-label">GitHub</div><div class="contact-value" style="font-size: 0.85rem;"><a href="https://github.com/danialahmed2207" target="_blank">github.com/danialahmed2207</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-4"><div class="contact-icon">💼</div><div><div class="contact-label">LinkedIn</div><div class="contact-value" style="font-size: 0.85rem;"><a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank">linkedin.com/in/danial-ahmed</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-5"><div class="contact-icon">X</div><div><div class="contact-label">Xing</div><div class="contact-value" style="font-size: 0.85rem;"><a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank">xing.com/profile/Danial_Ahmed</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-6"><div class="contact-icon">🏅</div><div><div class="contact-label">Credly</div><div class="contact-value" style="font-size: 0.85rem;"><a href="https://www.credly.com/badges/d7c5aed7-b3ba-492d-a0fe-4170528a36ce/public_url" target="_blank">credly.com/badges/d7c5aed7</a></div></div></div>
+      <div class="contact-item animate-on-scroll stagger-1"><div class="contact-icon">📍</div><div><div class="contact-label">Standort</div><div class="contact-value" style="font-size: 0.85rem;">Hemer, NRW, Deutschland</div></div></div>
     </div>
     <div class="animate-on-scroll stagger-3" style="text-align: center; margin-top: 2rem;">
-      <a href="Danial_Ahmed_Lebenslauf_2026_v4.pdf" download class="btn btn-primary" style="font-size: 1rem; padding: 0.9rem 2.5rem;">
-        📄 Lebenslauf herunterladen (PDF)
+      <a href="Danial_Ahmed_Lebenslauf_2026_v4.pdf" target="_blank" class="btn btn-primary" style="font-size: 0.95rem; padding: 0.85rem 2.2rem;">
+        📄 Lebenslauf ansehen (PDF)
       </a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="container">
-    © 2026 Danial Ahmed · Cloud Engineer & IT-Support · <a href="https://github.com/danialahmed2207">GitHub</a> · <a href="https://www.linkedin.com/in/danial-ahmed-b2731b263">LinkedIn</a>
+  <div class="container" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1rem; font-size: 0.85rem;">
+    <span>© 2026 Danial Ahmed · Cloud Engineer & IT-Support</span>
+    <span style="color: var(--border);">|</span>
+    <a href="https://github.com/danialahmed2207" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/danial-ahmed-b2731b263" target="_blank">LinkedIn</a>
+    <a href="https://www.xing.com/profile/Danial_Ahmed" target="_blank">Xing</a>
+    <span style="color: var(--border);">|</span>
+    <a href="Danial_Ahmed_Lebenslauf_2026_v4.pdf" target="_blank">📄 Lebenslauf</a>
   </div>
 </footer>
 
